@@ -1,0 +1,7 @@
+
+.checkbox-show-all-options li,
+.radio-show-all-options li,
+.select-show-all-options li,
+.multiselect-show-all-options li {
+    list-style: none;
+}

@@ -1,0 +1,25 @@
+.accelerate-message {
+	overflow: hidden;
+	position: relative;
+	border-left-color: #2ea2cc !important;
+}
+.accelerate-message a.button-primary,
+.accelerate-message a.button-secondary {
+	text-decoration: none !important;
+}
+.accelerate-message a.accelerate-message-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 10px 15px 10px 21px;
+	font-size: 13px;
+	line-height: 1.23076923;
+	text-decoration: none;
+}
+.accelerate-message a.accelerate-message-close:before {
+	position: absolute;
+	top: 8px;
+	left: 0;
+	-webkit-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
+}

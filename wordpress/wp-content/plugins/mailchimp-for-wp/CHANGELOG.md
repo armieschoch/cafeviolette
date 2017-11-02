@@ -1,6 +1,43 @@
 Changelog
 =========
 
+#### 4.1.10 - October 19, 2017
+
+**Improvements**
+
+- Remove unused options from Ninja Forms integration.
+- Now logging all sign-ups from Ninja Forms integrations when using [MailChimp for WordPress Premium](https://mc4wp.com/premium-features/). 
+
+**Additions**
+
+- Added Gravity Forms integration. You can now integrate with Gravity Forms by adding the "MailChimp" field to your forms.
+
+
+#### 4.1.9 - September 19, 2017
+
+**Improvements**
+
+- Add `<label>` element to sign-up checkbox for WCAG compatibility.
+- Custom integration now works with Enfold theme's contact form element.
+
+
+#### 4.1.7 & 4.1.8 - September 8, 2017
+
+**Fixes**
+
+- Properly escape the return value of `add_query_arg` when it is used in HTML attributes to prevent cross-site scripting. Thanks to [Karim Ouerghemmi of RIPS](https://www.ripstech.com/) for responsibly disclosing.
+- Now loading integrations after WPML so that String Translations work properly.
+
+**Additions**
+
+- Add sign-up integration for WPForms forms.
+
+**Improvements**
+
+- Updated internal JS dependencies.
+- Form tag `{data key="foo.bar"}` now allows you to access nested array values.
+
+
 #### 4.1.6 - July 31, 2017
 
 **Fixes**

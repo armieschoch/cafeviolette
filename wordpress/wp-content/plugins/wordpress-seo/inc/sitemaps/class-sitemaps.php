@@ -6,7 +6,7 @@
 /**
  * Class WPSEO_Sitemaps
  *
- * TODO This class could use a general description with some explanation on sitemaps. OR.
+ * @todo This class could use a general description with some explanation on sitemaps. OR.
  */
 class WPSEO_Sitemaps {
 
@@ -66,6 +66,7 @@ class WPSEO_Sitemaps {
 	 */
 	public function __construct() {
 
+		add_action( 'after_setup_theme', array( $this, 'init_sitemaps_providers' ) );
 		add_action( 'after_setup_theme', array( $this, 'reduce_query_load' ), 99 );
 		add_action( 'pre_get_posts', array( $this, 'redirect' ), 1 );
 		add_action( 'wpseo_hit_sitemap_index', array( $this, 'hit_sitemap_index' ) );
@@ -77,6 +78,19 @@ class WPSEO_Sitemaps {
 		$this->router      = new WPSEO_Sitemaps_Router();
 		$this->renderer    = new WPSEO_Sitemaps_Renderer();
 		$this->cache       = new WPSEO_Sitemaps_Cache();
+
+		if ( ! empty( $_SERVER['SERVER_PROTOCOL'] ) ) {
+			$this->http_protocol = sanitize_text_field( $_SERVER['SERVER_PROTOCOL'] );
+		}
+	}
+
+	/**
+	 * Initialize sitemap providers classes.
+	 *
+	 * @since 5.3
+	 */
+	public function init_sitemaps_providers() {
+
 		$this->providers   = array(
 			new WPSEO_Post_Type_Sitemap_Provider(),
 			new WPSEO_Taxonomy_Sitemap_Provider(),
@@ -89,10 +103,6 @@ class WPSEO_Sitemaps {
 			if ( is_object( $provider ) && $provider instanceof WPSEO_Sitemap_Provider ) {
 				$this->providers[] = $provider;
 			}
-		}
-
-		if ( ! empty( $_SERVER['SERVER_PROTOCOL'] ) ) {
-			$this->http_protocol = sanitize_text_field( $_SERVER['SERVER_PROTOCOL'] );
 		}
 	}
 
@@ -383,7 +393,7 @@ class WPSEO_Sitemaps {
 		header( 'Cache-Control: maxage=' . $expires );
 		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + $expires ) ) . ' GMT' );
 
-		require_once( WPSEO_PATH . 'css/xml-sitemap-xsl.php' );
+		require_once WPSEO_PATH . 'css/xml-sitemap-xsl.php';
 	}
 
 	/**
@@ -418,7 +428,7 @@ class WPSEO_Sitemaps {
 	 *
 	 * @return string|array|false
 	 */
-	static public function get_last_modified_gmt( $post_types, $return_all = false ) {
+	public static function get_last_modified_gmt( $post_types, $return_all = false ) {
 
 		global $wpdb;
 
@@ -548,7 +558,7 @@ class WPSEO_Sitemaps {
 	 *
 	 * @return mixed|void
 	 */
-	static public function filter_frequency( $filter, $default, $url ) {
+	public static function filter_frequency( $filter, $default, $url ) {
 		_deprecated_function( __METHOD__, 'WPSEO 3.5' );
 
 		/**

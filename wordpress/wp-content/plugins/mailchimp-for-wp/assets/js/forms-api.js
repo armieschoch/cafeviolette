@@ -36,7 +36,7 @@ function handleFormRequest(form, action, errors, data) {
 
 		// scroll to form again if page height changed since last scroll
 		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
-		if (config.auto_scroll && timeElapsed < 800 && document.body.clientHeight != pageHeight) {
+		if (config.auto_scroll && timeElapsed < 800 && document.body.clientHeight !== pageHeight) {
 			scrollToForm(form);
 		}
 
@@ -172,11 +172,11 @@ Form.prototype.setData = function (data) {
 };
 
 Form.prototype.getData = function () {
-	return serialize(this.element, { hash: true });
+	return serialize(this.element, { hash: true, empty: true });
 };
 
 Form.prototype.getSerializedData = function () {
-	return serialize(this.element);
+	return serialize(this.element, { hash: false, empty: true });
 };
 
 Form.prototype.setResponse = function (msg) {
@@ -982,7 +982,7 @@ module.exports = serialize;
 
 },{}],7:[function(require,module,exports){
 /*!
- * EventEmitter v5.1.0 - git.io/ee
+ * EventEmitter v5.2.2 - git.io/ee
  * Unlicense - http://unlicense.org/
  * Oliver Caldwell - http://oli.me.uk/
  * @preserve
@@ -1225,7 +1225,7 @@ module.exports = serialize;
 
     /**
      * Adds listeners in bulk using the manipulateListeners method.
-     * If you pass an object as the second argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
+     * If you pass an object as the first argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
      * You can also pass it a regular expression to add the array of listeners to all events that match it.
      * Yeah, this function does quite a bit. That's probably a bad thing.
      *
@@ -1240,7 +1240,7 @@ module.exports = serialize;
 
     /**
      * Removes listeners in bulk using the manipulateListeners method.
-     * If you pass an object as the second argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+     * If you pass an object as the first argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
      * You can also pass it an event name and an array of listeners to be removed.
      * You can also pass it a regular expression to remove the listeners from all events that match it.
      *

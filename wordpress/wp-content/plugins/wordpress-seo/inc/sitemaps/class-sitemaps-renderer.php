@@ -79,7 +79,8 @@ class WPSEO_Sitemaps_Renderer {
 	public function get_sitemap( $links, $type, $current_page ) {
 
 		$urlset = '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" '
-			. 'xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" '
+			. 'xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd '
+			. 'http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" '
 			. 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
 		/**
@@ -287,6 +288,7 @@ class WPSEO_Sitemaps_Renderer {
 			return $url;
 		}
 
+		// @todo Replace with call to wp_parse_url() once minimum requirement has gone up to WP 4.7.
 		$path = parse_url( $url, PHP_URL_PATH );
 
 		if ( ! empty( $path ) && '/' !== $path ) {
@@ -302,6 +304,7 @@ class WPSEO_Sitemaps_Renderer {
 			$url = str_replace( $path, $encoded_path, $url );
 		}
 
+		// @todo Replace with call to wp_parse_url() once minimum requirement has gone up to WP 4.7.
 		$query = parse_url( $url, PHP_URL_QUERY );
 
 		if ( ! empty( $query ) ) {

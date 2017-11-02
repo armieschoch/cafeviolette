@@ -205,7 +205,7 @@ class WPSEO_OpenGraph {
 
 			return true;
 		}
-		else if ( isset( $this->options['fb_admins'] ) && is_array( $this->options['fb_admins'] ) && $this->options['fb_admins'] !== array() ) {
+		elseif ( isset( $this->options['fb_admins'] ) && is_array( $this->options['fb_admins'] ) && $this->options['fb_admins'] !== array() ) {
 			$adminstr = implode( ',', array_keys( $this->options['fb_admins'] ) );
 			/**
 			 * Filter: 'wpseo_opengraph_admin' - Allow developer to filter the fb:admins string put out by Yoast SEO
@@ -256,7 +256,7 @@ class WPSEO_OpenGraph {
 				$title = wpseo_replace_vars( $title, $post );
 			}
 		}
-		else if ( is_front_page() ) {
+		elseif ( is_front_page() ) {
 			$title = ( isset( $this->options['og_frontpage_title'] ) && $this->options['og_frontpage_title'] !== '' ) ? $this->options['og_frontpage_title'] : $frontend->title( '' );
 		}
 		elseif ( is_category() || is_tax() || is_tag() ) {
@@ -729,10 +729,24 @@ class WPSEO_OpenGraph {
 			return false;
 		}
 
+		$post = get_post();
+		if ( ! $post ) {
+			return false;
+		}
+
+		$primary_term		 = new WPSEO_Primary_Term( 'category', $post->ID );
+		$primary_category 	 = $primary_term->get_primary_term();
+
+		if ( $primary_category ) {
+			// We can only show one section here, so we take the first one.
+			$this->og_tag( 'article:section', get_cat_name( $primary_category ) );
+
+			return true;
+		}
+
 		$terms = get_the_category();
 
 		if ( ! is_wp_error( $terms ) && ( is_array( $terms ) && $terms !== array() ) ) {
-
 			// We can only show one section here, so we take the first one.
 			$this->og_tag( 'article:section', $terms[0]->name );
 
@@ -792,7 +806,7 @@ class WPSEO_OpenGraph_Image {
 	private $images = array();
 
 	/**
-	 * @TODO This needs to be refactored since we only hold one set of dimensions for multiple images. R.
+	 * @todo This needs to be refactored since we only hold one set of dimensions for multiple images. R.
 	 * @var array $dimensions Holds image dimensions, if determined.
 	 */
 	protected $dimensions = array();
@@ -806,10 +820,8 @@ class WPSEO_OpenGraph_Image {
 	public function __construct( $options, $image = false ) {
 		$this->options = $options;
 
-		if ( ! empty( $image ) && $this->add_image( $image ) ) {
-			// Safely assume an image was added so we don't need to automatically determine it anymore.
-		}
-		else {
+		// If an image was not supplied or could not be added.
+		if ( empty( $image ) || ! $this->add_image( $image ) ) {
 			$this->set_images();
 		}
 	}

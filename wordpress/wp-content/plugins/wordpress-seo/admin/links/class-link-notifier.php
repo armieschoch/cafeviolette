@@ -29,7 +29,7 @@ class WPSEO_Link_Notifier {
 	 * Removes the notification when it is set and the amount of unindexed items is lower than the threshold.
 	 */
 	public function cleanup_notification() {
-		if ( ! $this->has_notification() || $this->requires_notification()  ) {
+		if ( ! $this->has_notification() || $this->requires_notification() ) {
 			return;
 		}
 
@@ -95,7 +95,7 @@ class WPSEO_Link_Notifier {
 					The Text link counter feature provides insights in how many links are found in your text and how many links are referring to your text. This is very helpful when you are improving your %1$sinternal linking%2$s.',
 					'wordpress-seo'
 				),
-				'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/15m' ). '" target="_blank">',
+				'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/15m' ) . '" target="_blank">',
 				'</a>',
 				'<button type="button" id="noticeRunLinkIndex" class="button">',
 				'</button>'
@@ -103,7 +103,7 @@ class WPSEO_Link_Notifier {
 			array(
 				'type'         => Yoast_Notification::WARNING,
 				'id'           => self::NOTIFICATION_ID,
-				'capabilities' => 'manage_options',
+				'capabilities' => 'wpseo_manage_options',
 				'priority'     => 0.8,
 			)
 		);

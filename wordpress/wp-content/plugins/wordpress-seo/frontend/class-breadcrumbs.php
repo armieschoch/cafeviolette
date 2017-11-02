@@ -206,9 +206,9 @@ class WPSEO_Breadcrumbs {
 	 */
 	private function find_deepest_term( $terms ) {
 		/*
-		Let's find the deepest term in this array, by looping through and then
-		   unsetting every term that is used as a parent by another one in the array.
-		*/
+		 * Let's find the deepest term in this array, by looping through and then
+		 * unsetting every term that is used as a parent by another one in the array.
+		 */
 		$terms_by_id = array();
 		foreach ( $terms as $term ) {
 			$terms_by_id[ $term->term_id ] = $term;
@@ -219,9 +219,9 @@ class WPSEO_Breadcrumbs {
 		unset( $term );
 
 		/*
-		As we could still have two subcategories, from different parent categories,
-		   let's pick the one with the lowest ordered ancestor.
-		*/
+		 * As we could still have two subcategories, from different parent categories,
+		 * let's pick the one with the lowest ordered ancestor.
+		 */
 		$parents_count = 0;
 		$term_order    = 9999; // Because ASC.
 		reset( $terms_by_id );
@@ -305,8 +305,11 @@ class WPSEO_Breadcrumbs {
 		$this->maybe_add_home_crumb();
 		$this->maybe_add_blog_crumb();
 
+		// Ignore coding standards for empty if statement.
+		// @codingStandardsIgnoreStart
 		if ( ( $this->show_on_front === 'page' && is_front_page() ) || ( $this->show_on_front === 'posts' && is_home() ) ) {
 			// Do nothing.
+			// @codingStandardsIgnoreEnd
 		}
 		elseif ( $this->show_on_front == 'page' && is_home() ) {
 			$this->add_blog_crumb();
@@ -764,8 +767,8 @@ class WPSEO_Breadcrumbs {
 				$inner_elm = 'strong';
 			}
 
-			if ( ( isset( $link['url'] ) && ( is_string( $link['url'] ) && $link['url'] !== '' ) ) &&
-			     ( $i < ( $this->crumb_count - 1 ) )
+			if ( ( isset( $link['url'] ) && ( is_string( $link['url'] ) && $link['url'] !== '' ) )
+				&& ( $i < ( $this->crumb_count - 1 ) )
 			) {
 				if ( $i === 0 ) {
 					$link_output .= '<' . $this->element . ' typeof="v:Breadcrumb">';
